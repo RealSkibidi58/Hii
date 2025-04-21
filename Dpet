@@ -1,0 +1,39 @@
+-- Create GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 300, 0, 200)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+
+-- Add an Icon at the top of the frame
+local Icon = Instance.new("ImageLabel")
+Icon.Parent = Frame
+Icon.Size = UDim2.new(0, 50, 0, 50)
+Icon.Position = UDim2.new(0.5, -25, 0, 10)
+Icon.Image = "rbxassetid://136388825215109"-- Replace with your image ID
+Icon.BackgroundTransparency = 1
+
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Parent = Frame
+TextLabel.Size = UDim2.new(1, 0, 0, 40)
+TextLabel.Text = "Pet Simulator Dupe Script"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 18
+TextLabel.BackgroundTransparency = 1
+TextLabel.TextAlign = Enum.TextXAlignment.Center
+
+local Button = Instance.new("TextButton")
+Button.Parent = Frame
+Button.Size = UDim2.new(0, 250, 0, 50)
+Button.Position = UDim2.new(0, 25, 0, 60)
+Button.Text = "Execute Script"
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.BackgroundColor3 = Color3.fromRGB(0, 128, 255)
+
+Button.MouseButton1Click:Connect(function()
+    -- Run the provided script
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/MagzTVT/Pet-simulator-Dupe-script/refs/heads/main/Script'))()
+end)
