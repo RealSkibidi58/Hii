@@ -1,9 +1,33 @@
 loadstring([[
+-- Services
+local TweenService = game:GetService("TweenService")
+
 -- Create ScreenGui
 local gui = Instance.new("ScreenGui")
 gui.Name = "PetSimGui"
 gui.ResetOnSpawn = false
 gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Toggle Button (Floating Icon with RGB effect)
+local toggleButton = Instance.new("ImageButton")
+toggleButton.Size = UDim2.new(0, 50, 0, 50)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+toggleButton.BorderSizePixel = 0
+toggleButton.Image = "rbxthumb://type=Asset&id=136388825215109&w=150&h=150"
+toggleButton.Parent = gui
+
+-- RGB loop
+task.spawn(function()
+    while true do
+        for hue = 0, 1, 0.01 do
+            local color = Color3.fromHSV(hue, 1, 1)
+            local tween = TweenService:Create(toggleButton, TweenInfo.new(0.05, Enum.EasingStyle.Linear), {BackgroundColor3 = color})
+            tween:Play()
+            tween.Completed:Wait()
+        end
+    end
+end)
 
 -- Create Main Frame
 local frame = Instance.new("Frame")
@@ -11,9 +35,10 @@ frame.Size = UDim2.new(0, 300, 0, 200)
 frame.Position = UDim2.new(0.5, -150, 0.5, -100)
 frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 frame.BorderSizePixel = 0
+frame.Visible = false -- Start hidden
 frame.Parent = gui
 
--- Add Icon (ImageLabel)
+-- Add Icon (inside frame)
 local icon = Instance.new("ImageLabel")
 icon.Size = UDim2.new(0, 50, 0, 50)
 icon.Position = UDim2.new(0, 10, 0, 10)
@@ -25,11 +50,16 @@ icon.Parent = frame
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0, 200, 0, 50)
 button.Position = UDim2.new(0.5, -100, 0.7, -25)
-button.Text = "Run Pet Sim Script"
+button.Text = "Dupe Pet [Need Alt account!]"
 button.TextSize = 18
 button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Parent = frame
+
+-- Toggle main frame visibility
+toggleButton.MouseButton1Click:Connect(function()
+    frame.Visible = not frame.Visible
+end)
 
 -- Run the external script on click
 button.MouseButton1Click:Connect(function()
