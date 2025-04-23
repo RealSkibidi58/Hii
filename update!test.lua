@@ -1,4 +1,8 @@
--- Check if in Pet Simulator 1 (PlaceId: 1599679393)
+-- CONFIGURATION
+local key = "Thekeyloveyou"  -- The key that unlocks the script
+local mainScriptURL = "https://raw.githubusercontent.com/RealSkibidi58/Hii/main/update!test.lua"  -- URL of your main script
+
+-- Check if the player is in Pet Simulator 1 (PlaceId: 1599679393)
 if game.PlaceId ~= 1599679393 then
     game.StarterGui:SetCore("SendNotification", {
         Title = "Incorrect Game!",
@@ -7,6 +11,31 @@ if game.PlaceId ~= 1599679393 then
     })
     return -- Stop the script from running if not in the correct game
 end
+
+-- Function to prompt user for key input
+local function promptKey()
+    local input = ""  -- Variable to hold the user input
+
+    -- Loop until the correct key is entered
+    repeat
+        -- You can replace this with a GUI input box, or keep it as a console prompt
+        print("Please enter the key: " .. key)  -- For testing purposes, you can replace this with a GUI input method
+        -- For now, assume the key is entered correctly in the game
+        input = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("InputField"):Text -- Replace with GUI or console input method
+
+        if input ~= key then
+            print("Invalid key. Please try again.")
+            wait(1)
+        end
+    until input == key
+
+    -- Key is valid, proceed with script execution
+    print("Key is valid. Loading the main script...")
+    loadstring(game:HttpGet(mainScriptURL))()  -- Load the main script
+end
+
+-- Call the key prompt function
+promptKey()
 
 -- Create ScreenGui
 local gui = Instance.new("ScreenGui")
